@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: list-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: list-app
+  teplate:
+    metadata:
+      labels:
+        app: list-app
+    spec:
+      containers:
+      - name: list-app
+        image: list-app:1.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5000
+        - containerPort: 5002
+        volumeMounts:
+        - name: data
+          mountPath: /data
+      volumes:
+      - name: data
+        emptyDir: {}
