@@ -7,7 +7,7 @@ spec:
   selector:
     matchLabels:
       app: list-app
-  teplate:
+  template:
     metadata:
       labels:
         app: list-app
