@@ -1,0 +1,35 @@
+docker build -t list-app:1.1 .
+
+kind load docker-image list-app:1.1
+kind load docker-image signup-app:1.1
+
+kubectl port-forward svc/argocd-server -n argocd 8080:443 &
+
+argocd login localhost:8080 \
+  --username admin \
+  --password <비밀번호> \
+  --grpc-web \
+  --insecure
+
+argocd app create list-app \
+  --repo https://github.com/jckim2419/list-app.git \
+  --path k8s \
+  --dest-server https://kubernetes.default.svc \
+  --dest-namespace default
+
+argocd app sync list-app --grpc-web
+
+kubectl get pods
+kubectl get svc
+
+kubectl port-forward svc/signup-app-svc 5000:5000 &
+
+curl -X POST http://localhost:5000/signup \
+  -H "Content-Type: application/json" \
+  -d '{"name":"jck","email":"jck@test.com"}'
+
+kubectl port-forward svc/list-app-svc 5002:5002 &
+
+curl http://localhost:5002/users
+
+
