@@ -9,7 +9,7 @@ DB_FILE = '/data/db.json'
 @app.route('/signup', methods=['POST'])
 def signup():
     data = request.get_json()
-    if not data or 'name' not on data:
+    if not data or 'name' not in data:
         return jsonify({'error': 'Missing name or email'}), 400
 
     if not os.path.exists(DB_FILE):
