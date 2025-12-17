@@ -1,5 +1,5 @@
 # signup_app.py
-from flask import Flask, request, jsonfy
+from flask import Flask, request, jsonify
 import json
 import os
 
