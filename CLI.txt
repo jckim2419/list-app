@@ -12,7 +12,7 @@ argocd login localhost:8080 \
   --insecure
 
 argocd app create list-app \
-  --repo https://github.com/jckim2419/list-app.git \
+  --repo https://github.com/jckim2419/docker-k8s-argocd-app.git \
   --path k8s \
   --dest-server https://kubernetes.default.svc \
   --dest-namespace default
